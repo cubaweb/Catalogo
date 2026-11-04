@@ -1,0 +1,40 @@
+<nav class="back-link" aria-label="Volver">
+  <a href="/movies">Volver al catálogo</a>
+</nav>
+
+<article class="detail">
+  <div class="detail-poster">
+    <%- include('../partials/poster', { movie: movie }) %>
+  </div>
+
+  <div class="detail-body">
+    <h1><%= movie.title %></h1>
+
+    <dl class="facts">
+      <dt>Director</dt>
+      <dd><%= movie.director || 'Sin registrar' %></dd>
+      <dt>Año</dt>
+      <dd><%= movie.year || 'Sin registrar' %></dd>
+      <dt>Género</dt>
+      <dd><%= movie.genre || 'Sin registrar' %></dd>
+      <dt>Duración</dt>
+      <dd><%= movie.duration ? movie.duration + ' minutos' : 'Sin registrar' %></dd>
+      <dt>Puntuación</dt>
+      <dd><%= movie.rating !== null ? Number(movie.rating).toFixed(1) + ' de 10' : 'Sin puntuar' %></dd>
+      <% if (isAdmin) { %>
+        <dt>Agregada por</dt>
+        <dd><%= movie.owner_name %></dd>
+      <% } %>
+    </dl>
+
+    <h2 class="synopsis-title">Sinopsis</h2>
+    <p class="synopsis"><%= movie.synopsis || 'Aún no hay sinopsis. Puedes escribir una al editar la película.' %></p>
+
+    <div class="detail-actions">
+      <a class="btn btn-curtain" href="/movies/<%= movie.id %>/edit">Editar</a>
+      <form method="post" action="/movies/<%= movie.id %>?_method=DELETE" data-confirm="¿Eliminar «<%= movie.title %>»? Esta acción no se puede deshacer.">
+        <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+      </form>
+    </div>
+  </div>
+</article>

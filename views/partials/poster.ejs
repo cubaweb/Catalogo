@@ -1,0 +1,12 @@
+<div class="poster" style="--hue: <%= (Number(movie.id) * 47) % 360 %>">
+  <div class="poster-fallback">
+    <span class="poster-title"><%= movie.title %></span>
+    <span class="poster-genre"><%= movie.genre || 'Sin género' %></span>
+  </div>
+  <% if (movie.poster_url) { %>
+    <img src="<%= movie.poster_url %>" alt="Póster de <%= movie.title %>" loading="lazy" referrerpolicy="no-referrer">
+  <% } %>
+  <% if (movie.rating !== null && movie.rating !== undefined) { %>
+    <span class="stub" title="Puntuación"><%= Number(movie.rating).toFixed(1) %></span>
+  <% } %>
+</div>

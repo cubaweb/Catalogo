@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: cartelera
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d cartelera"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/cartelera
+      DB_SSL: "false"
+      JWT_SECRET: clave-local-de-desarrollo-cambiala-en-produccion
+      ADMIN_EMAIL: admin@cartelera.local
+      ADMIN_PASSWORD: Admin12345
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:

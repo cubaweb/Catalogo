@@ -1,0 +1,56 @@
+<% const v = locals.values || {}; %>
+<section class="form-page">
+  <h1><%= heading %></h1>
+
+  <%- include('../partials/errors', { errors: locals.errors || [] }) %>
+
+  <form method="post" action="<%= action %>" class="row g-3 movie-form">
+    <div class="col-12">
+      <label for="title" class="form-label">Título</label>
+      <input type="text" class="form-control" id="title" name="title" value="<%= v.title ?? '' %>" maxlength="150" required>
+    </div>
+
+    <div class="col-md-8">
+      <label for="director" class="form-label">Director</label>
+      <input type="text" class="form-control" id="director" name="director" value="<%= v.director ?? '' %>" maxlength="100">
+    </div>
+    <div class="col-md-4">
+      <label for="year" class="form-label">Año</label>
+      <input type="number" class="form-control" id="year" name="year" value="<%= v.year ?? '' %>" min="1888" max="<%= new Date().getFullYear() + 5 %>">
+    </div>
+
+    <div class="col-md-4">
+      <label for="genre" class="form-label">Género</label>
+      <select class="form-select" id="genre" name="genre">
+        <option value="">Sin género</option>
+        <% genres.forEach(function (genre) { %>
+          <option value="<%= genre %>"<%= v.genre === genre ? ' selected' : '' %>><%= genre %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="rating" class="form-label">Puntuación (0 a 10)</label>
+      <input type="number" class="form-control" id="rating" name="rating" value="<%= v.rating ?? '' %>" min="0" max="10" step="0.1">
+    </div>
+    <div class="col-md-4">
+      <label for="duration" class="form-label">Duración (minutos)</label>
+      <input type="number" class="form-control" id="duration" name="duration" value="<%= v.duration ?? '' %>" min="1" max="1000">
+    </div>
+
+    <div class="col-12">
+      <label for="synopsis" class="form-label">Sinopsis</label>
+      <textarea class="form-control" id="synopsis" name="synopsis" rows="5" maxlength="2000"><%= v.synopsis ?? '' %></textarea>
+    </div>
+
+    <div class="col-12">
+      <label for="poster_url" class="form-label">Enlace al póster</label>
+      <input type="url" class="form-control" id="poster_url" name="poster_url" value="<%= v.poster_url ?? '' %>" maxlength="500" aria-describedby="posterHelp" placeholder="https://">
+      <div id="posterHelp" class="form-text">Opcional. Pega el enlace directo a una imagen; si lo dejas vacío, se genera un póster con el título.</div>
+    </div>
+
+    <div class="col-12 form-actions">
+      <button type="submit" class="btn btn-curtain"><%= submitLabel %></button>
+      <a class="btn btn-ghost" href="<%= cancelUrl %>">Cancelar</a>
+    </div>
+  </form>
+</section>

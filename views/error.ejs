@@ -1,0 +1,11 @@
+<section class="error-page">
+  <p class="error-code"><%= status %></p>
+  <h1><%= message %></h1>
+  <% if (locals.stack) { %>
+    <pre class="error-stack"><%= stack %></pre>
+  <% } %>
+  <div class="error-actions">
+    <a class="btn btn-curtain" href="/">Ir al inicio</a>
+    <button type="button" class="btn btn-ghost" data-back>Volver</button>
+  </div>
+</section>

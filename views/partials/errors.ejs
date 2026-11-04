@@ -1,0 +1,10 @@
+<% if (locals.errors && errors.length) { %>
+  <div class="alert alert-danger" role="alert">
+    <p class="fw-bold mb-1">Revisa estos datos antes de continuar:</p>
+    <ul class="mb-0">
+      <% errors.forEach(function (message) { %>
+        <li><%= message %></li>
+      <% }); %>
+    </ul>
+  </div>
+<% } %>

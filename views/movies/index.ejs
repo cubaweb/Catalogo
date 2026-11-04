@@ -1,0 +1,56 @@
+<section class="page-head">
+  <div>
+    <h1><%= isAdmin ? 'Todas las películas' : 'Mi catálogo' %></h1>
+    <p class="count"><%= result.total %> <%= result.total === 1 ? 'película' : 'películas' %><%= hasFilters ? ' con estos filtros' : '' %></p>
+  </div>
+  <a class="btn btn-curtain" href="/movies/new">Agregar película</a>
+</section>
+
+<form class="filter-bar" method="get" action="/movies" role="search">
+  <div class="filter-search">
+    <label for="q" class="form-label">Buscar</label>
+    <input type="search" class="form-control" id="q" name="q" value="<%= filters.q %>" placeholder="Título o director" maxlength="100">
+  </div>
+  <div>
+    <label for="genre" class="form-label">Género</label>
+    <select class="form-select" id="genre" name="genre">
+      <option value="">Todos</option>
+      <% genres.forEach(function (genre) { %>
+        <option value="<%= genre %>"<%= filters.genre === genre ? ' selected' : '' %>><%= genre %></option>
+      <% }); %>
+    </select>
+  </div>
+  <div>
+    <label for="sort" class="form-label">Ordenar por</label>
+    <select class="form-select" id="sort" name="sort">
+      <% Object.keys(sorts).forEach(function (key) { %>
+        <option value="<%= key %>"<%= filters.sort === key ? ' selected' : '' %>><%= sorts[key].label %></option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button type="submit" class="btn btn-curtain">Buscar</button>
+    <% if (hasFilters) { %><a class="btn btn-ghost" href="/movies">Limpiar filtros</a><% } %>
+  </div>
+</form>
+
+<% if (result.items.length === 0) { %>
+  <section class="empty">
+    <% if (hasFilters) { %>
+      <h2>No hay películas con esos filtros</h2>
+      <p>Prueba con otro título o quita el género elegido.</p>
+      <a class="btn btn-ghost" href="/movies">Ver todo el catálogo</a>
+    <% } else { %>
+      <h2>Tu catálogo está vacío</h2>
+      <p>Agrega la primera película que quieras recordar.</p>
+      <a class="btn btn-curtain" href="/movies/new">Agregar película</a>
+    <% } %>
+  </section>
+<% } else { %>
+  <ul class="movie-grid">
+    <% result.items.forEach(function (movie) { %>
+      <li><%- include('../partials/movie-card', { movie: movie, showOwner: isAdmin }) %></li>
+    <% }); %>
+  </ul>
+  <%- include('../partials/pagination', { result: result, pageUrl: pageUrl }) %>
+<% } %>

@@ -1,0 +1,17 @@
+<% if (result.pages > 1) { %>
+  <nav class="mt-5" aria-label="Paginación">
+    <ul class="pagination justify-content-center flex-wrap">
+      <li class="page-item<%= result.page === 1 ? ' disabled' : '' %>">
+        <a class="page-link" href="/movies<%= pageUrl(result.page - 1) %>"<%- result.page === 1 ? ' tabindex="-1" aria-disabled="true"' : '' %>>Anterior</a>
+      </li>
+      <% for (let p = Math.max(1, result.page - 2); p <= Math.min(result.pages, result.page + 2); p++) { %>
+        <li class="page-item<%= p === result.page ? ' active' : '' %>">
+          <a class="page-link" href="/movies<%= pageUrl(p) %>"<%- p === result.page ? ' aria-current="page"' : '' %>><%= p %></a>
+        </li>
+      <% } %>
+      <li class="page-item<%= result.page === result.pages ? ' disabled' : '' %>">
+        <a class="page-link" href="/movies<%= pageUrl(result.page + 1) %>"<%- result.page === result.pages ? ' tabindex="-1" aria-disabled="true"' : '' %>>Siguiente</a>
+      </li>
+    </ul>
+  </nav>
+<% } %>

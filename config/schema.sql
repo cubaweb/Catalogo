@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(80) NOT NULL,
+  email VARCHAR(160) NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  role VARCHAR(10) NOT NULL DEFAULT 'user' CHECK (role IN ('user', 'admin')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS movies (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users (id) ON DELETE CASCADE,
+  title VARCHAR(150) NOT NULL,
+  director VARCHAR(100),
+  year SMALLINT CHECK (year BETWEEN 1888 AND 2200),
+  genre VARCHAR(40),
+  rating NUMERIC(3, 1) CHECK (rating BETWEEN 0 AND 10),
+  duration SMALLINT CHECK (duration BETWEEN 1 AND 1000),
+  synopsis TEXT,
+  poster_url VARCHAR(500),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS movies_user_id_idx ON movies (user_id);
+CREATE INDEX IF NOT EXISTS movies_genre_idx ON movies (genre);
+CREATE INDEX IF NOT EXISTS movies_created_at_idx ON movies (created_at DESC);
+
+ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE movies ENABLE ROW LEVEL SECURITY;

@@ -1,0 +1,30 @@
+<section class="hero">
+  <div class="hero-copy">
+    <h1>Tu cartelera personal, siempre a mano.</h1>
+    <p class="hero-lead">Guarda las películas que has visto con su puntuación, su género y tu sinopsis. Busca por título o director, filtra por género y vuelve a ellas cuando quieras.</p>
+    <div class="hero-actions">
+      <a class="btn btn-curtain btn-lg" href="/auth/register">Crear mi catálogo</a>
+      <a class="btn btn-ghost btn-lg" href="/auth/login">Ya tengo cuenta</a>
+    </div>
+  </div>
+  <div class="fan" aria-hidden="true">
+    <%- include('partials/poster', { movie: { id: 3, title: 'La última función', genre: 'Drama', rating: 8.4, poster_url: null } }) %>
+    <%- include('partials/poster', { movie: { id: 11, title: 'Medianoche en la calle 9', genre: 'Suspenso', rating: 7.9, poster_url: null } }) %>
+    <%- include('partials/poster', { movie: { id: 7, title: 'Los años de neón', genre: 'Ciencia ficción', rating: 8.8, poster_url: null } }) %>
+  </div>
+</section>
+
+<section class="pillars" aria-label="Qué puedes hacer">
+  <article>
+    <h2>Guarda cada película</h2>
+    <p>Título, director, año, duración, género, puntuación de 0 a 10 y un enlace al póster. Edita o elimina cuando cambies de opinión.</p>
+  </article>
+  <article>
+    <h2>Encuentra al instante</h2>
+    <p>Busca por título o director, filtra por género y ordena por puntuación, año o por lo último que agregaste.</p>
+  </article>
+  <article>
+    <h2>Tu catálogo es tuyo</h2>
+    <p>Cada persona ve y gestiona solo sus películas. El administrador puede revisar y moderar todo el catálogo.</p>
+  </article>
+</section>

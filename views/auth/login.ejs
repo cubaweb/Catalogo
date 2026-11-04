@@ -1,0 +1,21 @@
+<section class="auth-page">
+  <h1>Entrar a tu catálogo</h1>
+  <p class="text-muted">Usa el correo con el que creaste tu cuenta.</p>
+
+  <%- include('../partials/errors', { errors: locals.errors || [] }) %>
+
+  <form method="post" action="/auth/login" class="d-grid gap-3" novalidate>
+    <input type="hidden" name="redirectTo" value="<%= locals.redirectTo || '' %>">
+    <div>
+      <label for="email" class="form-label">Correo electrónico</label>
+      <input type="email" class="form-control" id="email" name="email" value="<%= (locals.values && values.email) || '' %>" autocomplete="email" required autofocus>
+    </div>
+    <div>
+      <label for="password" class="form-label">Contraseña</label>
+      <input type="password" class="form-control" id="password" name="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn btn-curtain btn-lg">Entrar</button>
+  </form>
+
+  <p class="auth-switch">¿Aún no tienes cuenta? <a href="/auth/register">Crea una</a></p>
+</section>

@@ -1,0 +1,53 @@
+<header class="site-header">
+  <nav class="navbar navbar-expand-md" data-bs-theme="dark" aria-label="Navegación principal">
+    <div class="container">
+      <a class="brand" href="/">
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+          <rect x="3" y="5" width="26" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.4"></rect>
+          <rect x="8" y="10" width="16" height="12" rx="1.5" fill="#d99a1b"></rect>
+          <circle cx="5.5" cy="9" r="1" fill="currentColor"></circle>
+          <circle cx="5.5" cy="16" r="1" fill="currentColor"></circle>
+          <circle cx="5.5" cy="23" r="1" fill="currentColor"></circle>
+          <circle cx="26.5" cy="9" r="1" fill="currentColor"></circle>
+          <circle cx="26.5" cy="16" r="1" fill="currentColor"></circle>
+          <circle cx="26.5" cy="23" r="1" fill="currentColor"></circle>
+        </svg>
+        <span>Cartelera</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav me-auto">
+          <% if (locals.currentUser) { %>
+            <li class="nav-item">
+              <a class="nav-link<%= locals.currentPath === '/movies' ? ' active' : '' %>" href="/movies"<%- locals.currentPath === '/movies' ? ' aria-current="page"' : '' %>>
+                <%= currentUser.role === 'admin' ? 'Todas las películas' : 'Mi catálogo' %>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link<%= locals.currentPath === '/movies/new' ? ' active' : '' %>" href="/movies/new"<%- locals.currentPath === '/movies/new' ? ' aria-current="page"' : '' %>>Agregar película</a>
+            </li>
+          <% } %>
+        </ul>
+        <ul class="navbar-nav align-items-md-center gap-md-3">
+          <% if (locals.currentUser) { %>
+            <li class="nav-item nav-user">
+              <span><%= currentUser.name %></span>
+              <% if (currentUser.role === 'admin') { %><span class="badge badge-admin">Administrador</span><% } %>
+            </li>
+            <li class="nav-item">
+              <form method="post" action="/auth/logout">
+                <button type="submit" class="btn btn-sm btn-outline-light">Salir</button>
+              </form>
+            </li>
+          <% } else { %>
+            <li class="nav-item"><a class="nav-link" href="/auth/login">Entrar</a></li>
+            <li class="nav-item"><a class="btn btn-sm btn-light" href="/auth/register">Crear cuenta</a></li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="filmstrip" aria-hidden="true"></div>
+</header>

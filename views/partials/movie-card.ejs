@@ -1,0 +1,8 @@
+<a class="movie-card" href="/movies/<%= movie.id %>">
+  <%- include('poster', { movie: movie }) %>
+  <h3><%= movie.title %></h3>
+  <p class="meta"><%= movie.year || 'Año sin registrar' %></p>
+  <% if (locals.showOwner) { %>
+    <p class="meta owner">Agregada por <%= movie.owner_name %></p>
+  <% } %>
+</a>
