@@ -42,7 +42,7 @@ public/        css, js e imágenes
 
 ## Enlace en producción
 
-https://tu-app.example.com
+Sin despliegue. Ver instalacion local para ejecutarlo
 
 ## Instalación local
 
