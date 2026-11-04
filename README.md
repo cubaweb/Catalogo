@@ -42,7 +42,7 @@ public/        css, js e imágenes
 
 ## Enlace en producción
 
-Sin despliegue. Ver instalacion local para ejecutarlo
+https://catalogo-x4fw.onrender.com
 
 ## Instalación local
 
